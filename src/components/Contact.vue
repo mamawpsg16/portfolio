@@ -4,7 +4,7 @@ import { reactive, ref } from 'vue'
 const year = new Date().getFullYear()
 
 // Get a free key at https://web3forms.com — paste it here. Form is inert until set.
-const WEB3FORMS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY'
+const WEB3FORMS_KEY = '50676c0c-af4f-4d7b-8596-c30894b51816'
 
 const form = reactive({ name: '', email: '', message: '', botcheck: '' })
 const status = ref('idle') // idle | sending | success | error
