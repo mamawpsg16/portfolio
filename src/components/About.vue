@@ -16,20 +16,6 @@
           scalable, high-performance solutions — and I thrive in fast-paced, collaborative
           environments.
         </p>
-        <div class="about__stats">
-          <div class="stat">
-            <div class="stat__num">5<span class="amber">+</span></div>
-            <div class="stat__label">Years of experience</div>
-          </div>
-          <div class="stat">
-            <div class="stat__num">3</div>
-            <div class="stat__label">Companies &amp; teams</div>
-          </div>
-          <div class="stat">
-            <div class="stat__num">10<span class="amber">+</span></div>
-            <div class="stat__label">Languages &amp; frameworks</div>
-          </div>
-        </div>
       </div>
       <div class="about__aside reveal" v-reveal="120">
         <div class="factline">
@@ -59,6 +45,20 @@
             <div class="factline__v">Web apps · Laravel · Vue.js</div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="about__stats reveal" v-reveal="120">
+      <div class="stat">
+        <div class="stat__num">5<span class="amber">+</span></div>
+        <div class="stat__label">Years of experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat__num">3</div>
+        <div class="stat__label">Companies &amp; teams</div>
+      </div>
+      <div class="stat">
+        <div class="stat__num">10<span class="amber">+</span></div>
+        <div class="stat__label">Languages &amp; frameworks</div>
       </div>
     </div>
   </section>
