@@ -8,8 +8,8 @@
       </h1>
       <p class="hero__lede reveal" v-reveal="160">
         I'm a <strong>full-stack web developer</strong> who builds and maintains responsive
-        web applications — leading feature delivery, modernizing legacy systems, and always
-        eager to learn new tools and technologies.
+        web applications — modernizing legacy systems and exploring new technologies
+        as the industry evolves.
       </p>
       <div class="hero__socials reveal" v-reveal="240">
         <a class="social" href="mailto:kevinmensah114@gmail.com" aria-label="Email">

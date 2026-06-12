@@ -11,8 +11,8 @@
           and maintaining responsive web applications using PHP, Laravel, Vue.js and JavaScript.
         </p>
         <p>
-          I have a proven track record in leading feature delivery, staying eager to learn new
-          tools and technologies, and modernizing legacy systems. I'm at my best translating business requirements into
+          I have a proven track record in modernizing legacy systems and exploring new
+          technologies as the industry evolves. I'm at my best translating business requirements into
           scalable, high-performance solutions — and I thrive in fast-paced, collaborative
           environments.
         </p>
