@@ -42,11 +42,11 @@ npm run preview  # preview the production build
 
 GitHub Actions pipeline across `development` → `uat` → `main`:
 
-| Workflow | File | Trigger |
-| --- | --- | --- |
-| CI (build check) | `.github/workflows/ci.yml` | PRs into `development`, `uat` |
-| CD (deploy) | `.github/workflows/cd.yml` | PR into `main` (pre-merge check) + push to `main` (deploy) |
-| AI Code Review | `.github/workflows/ai-review.yml` | PRs into `development`, `uat`, `main` |
+| Workflow         | File                              | Trigger                                                    |
+| ---------------- | --------------------------------- | ---------------------------------------------------------- |
+| CI (build check) | `.github/workflows/ci.yml`        | PRs into `development`, `uat`                              |
+| CD (deploy)      | `.github/workflows/cd.yml`        | PR into `main` (pre-merge check) + push to `main` (deploy) |
+| AI Code Review   | `.github/workflows/ai-review.yml` | PRs into `development`, `uat`, `main`                      |
 
 ## AI code review (Groq)
 
@@ -65,3 +65,4 @@ Add a repository secret named `GROQ_API_KEY`
 
 > The diff sent to the model is capped at 12000 bytes to stay within the context
 > window — very large PRs may be reviewed only partially.
+> Add
