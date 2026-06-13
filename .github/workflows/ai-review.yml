@@ -1,0 +1,82 @@
+name: AI Code Review (Groq)
+
+on:
+  pull_request:
+    branches: [development, uat, main]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # need full history to diff against base
+
+      - name: Build PR diff
+        run: |
+          git diff "origin/${{ github.base_ref }}...HEAD" > pr.diff
+          # cap size so we stay within the model's context window
+          head -c 12000 pr.diff > pr.diff.capped
+          echo "Diff bytes: $(wc -c < pr.diff.capped)"
+
+      - name: Ask Groq for review
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: |
+          if [ -z "$GROQ_API_KEY" ]; then
+            echo "GROQ_API_KEY secret is missing." > review.md
+            exit 0
+          fi
+
+          DIFF=$(cat pr.diff.capped)
+          if [ -z "$DIFF" ]; then
+            echo "No code changes to review." > review.md
+            exit 0
+          fi
+
+          jq -n --arg diff "$DIFF" '{
+            model: "llama-3.3-70b-versatile",
+            temperature: 0.2,
+            messages: [
+              { role: "system", content: "You are a senior code reviewer. Review the pull request diff. Be concise. Use bullet points. Call out bugs, security risks, and concrete improvements. If it looks good, say so briefly." },
+              { role: "user", content: ("Review this diff:\n\n" + $diff) }
+            ]
+          }' > req.json
+
+          curl -sS https://api.groq.com/openai/v1/chat/completions \
+            -H "Authorization: Bearer $GROQ_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d @req.json > resp.json
+
+          jq -r '.choices[0].message.content // .error.message // "No response from Groq."' resp.json > review.md
+          echo "----- review -----"
+          cat review.md
+
+      - name: Post review comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const marker = '<!-- groq-ai-review -->';
+            const body = marker + '\n## 🤖 Groq AI Review\n\n' + fs.readFileSync('review.md', 'utf8');
+
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+
+            // upsert: update our previous comment instead of spamming new ones
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner, repo, issue_number,
+            });
+            const existing = comments.find(c => c.body && c.body.includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
+            } else {
+              await github.rest.issues.createComment({ owner, repo, issue_number, body });
+            }
