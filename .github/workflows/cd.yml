@@ -1,8 +1,10 @@
 name: CD - Production Deploy
 
 on:
+  pull_request:
+    branches: [main] # runs check BEFORE merge
   push:
-    branches: [main]
+    branches: [main] # runs deploy AFTER merge
 
 jobs:
   build:
