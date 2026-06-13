@@ -113,12 +113,6 @@ h1, h2, h3 { margin: 0; }
   align-items: center;
   gap: 10px;
 }
-.eyebrow::before {
-  content: "";
-  width: 24px;
-  height: 1px;
-  background: var(--moss);
-}
 
 /* ==========================================================================
    Top nav
@@ -228,7 +222,10 @@ h1, h2, h3 { margin: 0; }
 .section__head {
   margin-bottom: clamp(16px, 2.5vw, 26px);
   max-width: 640px;
+  margin-inline: auto;
+  text-align: center;
 }
+.section__head .eyebrow { justify-content: center; }
 .section__head .h2 { margin-top: 18px; }
 
 .card {
@@ -243,7 +240,7 @@ h1, h2, h3 { margin: 0; }
    ========================================================================== */
 .hero {
   position: relative;
-  min-height: 88svh;
+  min-height: 82svh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -251,7 +248,7 @@ h1, h2, h3 { margin: 0; }
   text-align: center;
   max-width: var(--maxw);
   margin: 0 auto;
-  padding-top: clamp(72px, 10vh, 120px);
+  padding-top: clamp(56px, 6vh, 80px);
   }
 .hero__glow {
   position: absolute;
@@ -818,14 +815,6 @@ h1, h2, h3 { margin: 0; }
 }
 .footer__brand { display: flex; align-items: center; gap: 10px; }
 .footer__brand img { width: 22px; height: 22px; border-radius: 6px; }
-.footer__social { display: flex; align-items: center; gap: 16px; }
-.footer__social a {
-  display: grid; place-items: center;
-  color: var(--paper-faint);
-  transition: color 160ms var(--ease), transform 160ms var(--ease);
-}
-.footer__social a:hover { color: var(--moss-bright); transform: translateY(-2px); }
-.footer__social svg { width: 20px; height: 20px; }
 
 @media (max-width: 640px) {
   .contact__row { grid-template-columns: 1fr; }
