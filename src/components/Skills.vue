@@ -6,7 +6,7 @@ const TECH = {
     { name: 'PHP', slug: 'php', color: '777BB4' },
     { name: 'Python', slug: 'python', color: '3776AB' },
     { name: 'C++', slug: 'cplusplus', color: '00599C' },
-    { name: 'Java', slug: 'openjdk', color: 'EA8220' },
+    { name: 'Java', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
     { name: 'HTML5', slug: 'html5', color: 'E34F26' },
     { name: 'CSS', slug: 'css', color: '663399' },
     { name: 'MySQL', slug: 'mysql', color: '4479A1' },
@@ -36,7 +36,7 @@ const groups = [
 ]
 
 const mono = (name) => (name.match(/[A-Za-z]/) || ['?'])[0].toUpperCase()
-const logoSrc = (t) => `https://cdn.simpleicons.org/${t.slug}/${t.color}`
+const logoSrc = (t) => t.src || `https://cdn.simpleicons.org/${t.slug}/${t.color}`
 
 function onLogoError(e) {
   e.target.style.display = 'none'
@@ -62,7 +62,7 @@ function onLogoError(e) {
         <div class="tech-grid">
           <div v-for="t in TECH[group.key]" :key="t.name" class="tech">
             <img
-              v-if="t.slug"
+              v-if="t.slug || t.src"
               class="tech__logo"
               :src="logoSrc(t)"
               alt=""
@@ -73,7 +73,7 @@ function onLogoError(e) {
             />
             <span
               class="tech__fallback"
-              :style="{ display: t.slug ? 'none' : 'grid' }"
+              :style="{ display: (t.slug || t.src) ? 'none' : 'grid' }"
             >{{ mono(t.name) }}</span>
             <span class="tech__name">{{ t.name }}</span>
           </div>
